@@ -113,7 +113,8 @@ const SOCIAL_ICONS = [
 ];
 
 const SocialLinksSection = () => {
-  const { register, control, setValue, watch } = useFormContext<ProfileFormData>();
+  const { register, control, setValue, watch } =
+    useFormContext<ProfileFormData>();
   const [searchTerm, setSearchTerm] = useState("");
 
   const { fields, append, remove } = useFieldArray({
@@ -132,9 +133,10 @@ const SocialLinksSection = () => {
     return <Globe className="w-4 h-4" />;
   };
 
-  const filteredIcons = SOCIAL_ICONS.filter((icon) =>
-    icon.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    icon.id.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredIcons = SOCIAL_ICONS.filter(
+    (icon) =>
+      icon.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      icon.id.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -199,7 +201,10 @@ const SocialLinksSection = () => {
                             </span>
                           </button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-72 p-0 rounded-2xl border-border shadow-2xl overflow-hidden bg-white dark:bg-slate-900" align="start">
+                        <PopoverContent
+                          className="w-72 p-0 rounded-2xl border-border shadow-2xl overflow-hidden bg-white dark:bg-slate-900"
+                          align="start"
+                        >
                           <div className="p-3 border-b border-border bg-slate-50/50 dark:bg-slate-800/20">
                             <div className="relative">
                               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
@@ -217,20 +222,28 @@ const SocialLinksSection = () => {
                                 key={icon.id}
                                 type="button"
                                 onClick={() => {
-                                  setValue(`socialLinks.${index}.logo`, icon.id);
-                                  setValue(`socialLinks.${index}.name`, icon.label);
+                                  setValue(
+                                    `socialLinks.${index}.logo`,
+                                    icon.id,
+                                  );
+                                  setValue(
+                                    `socialLinks.${index}.name`,
+                                    icon.label,
+                                  );
                                 }}
                                 className={cn(
                                   "flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-200 group/icon-btn",
                                   currentLogo === icon.id
                                     ? "bg-brand-600 text-white shadow-lg shadow-brand-600/30"
-                                    : "hover:bg-brand-600/10 text-muted-foreground hover:text-brand-600"
+                                    : "hover:bg-brand-600/10 text-muted-foreground hover:text-brand-600",
                                 )}
                                 title={icon.label}
                               >
                                 <icon.icon className="w-5 h-5" />
                                 <span className="text-[9px] font-medium truncate w-full text-center">
-                                  {icon.id.length > 8 ? icon.id.substring(0, 6) + ".." : icon.id}
+                                  {icon.id.length > 8
+                                    ? icon.id.substring(0, 6) + ".."
+                                    : icon.id}
                                 </span>
                               </button>
                             ))}
