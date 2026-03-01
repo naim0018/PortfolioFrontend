@@ -51,18 +51,12 @@ import {
   Pocket,
   Send,
   Trello,
-  Search,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { IconOption } from "./IconPickerPopover";
+import IconPickerPopover from "./IconPickerPopover";
 
-const SOCIAL_ICONS = [
+const SOCIAL_ICONS: IconOption[] = [
   { id: "github", icon: Github, label: "GitHub" },
   { id: "linkedin", icon: Linkedin, label: "LinkedIn" },
   { id: "twitter", icon: Twitter, label: "Twitter/X" },
@@ -115,7 +109,6 @@ const SOCIAL_ICONS = [
 const SocialLinksSection = () => {
   const { register, control, setValue, watch } =
     useFormContext<ProfileFormData>();
-  const [searchTerm, setSearchTerm] = useState("");
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -123,21 +116,6 @@ const SocialLinksSection = () => {
   });
 
   const watchedLinks = watch("socialLinks");
-
-  const getIcon = (iconId: string) => {
-    const iconData = SOCIAL_ICONS.find((item) => item.id === iconId);
-    if (iconData) {
-      const Icon = iconData.icon;
-      return <Icon className="w-4 h-4" />;
-    }
-    return <Globe className="w-4 h-4" />;
-  };
-
-  const filteredIcons = SOCIAL_ICONS.filter(
-    (icon) =>
-      icon.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      icon.id.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
 
   return (
     <section className="bg-white dark:bg-slate-900 rounded-2xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
@@ -187,74 +165,31 @@ const SocialLinksSection = () => {
                       <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest pl-1">
                         Icon
                       </label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <button
-                            type="button"
-                            className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 border border-border rounded-xl text-sm font-semibold text-foreground hover:border-brand-500/50 transition-all duration-300 shadow-sm"
-                          >
-                            <div className="bg-brand-600/10 p-1.5 rounded-lg text-brand-600">
-                              {getIcon(currentLogo)}
-                            </div>
-                            <span className="truncate capitalize text-xs">
-                              {currentLogo.replace("-", " ")}
-                            </span>
-                          </button>
-                        </PopoverTrigger>
-                        <PopoverContent
-                          className="w-72 p-0 rounded-2xl border-border shadow-2xl overflow-hidden bg-white dark:bg-slate-900"
-                          align="start"
-                        >
-                          <div className="p-3 border-b border-border bg-slate-50/50 dark:bg-slate-800/20">
-                            <div className="relative">
-                              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-                              <input
-                                placeholder="Search icons..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-border rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500/50 transition-all"
-                              />
-                            </div>
-                          </div>
-                          <div className="p-2 max-h-[280px] overflow-y-auto overflow-x-hidden grid grid-cols-4 gap-1">
-                            {filteredIcons.map((icon) => (
-                              <button
-                                key={icon.id}
-                                type="button"
-                                onClick={() => {
-                                  setValue(
-                                    `socialLinks.${index}.logo`,
-                                    icon.id,
-                                  );
-                                  setValue(
-                                    `socialLinks.${index}.name`,
-                                    icon.label,
-                                  );
-                                }}
-                                className={cn(
-                                  "flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-200 group/icon-btn",
-                                  currentLogo === icon.id
-                                    ? "bg-brand-600 text-white shadow-lg shadow-brand-600/30"
-                                    : "hover:bg-brand-600/10 text-muted-foreground hover:text-brand-600",
-                                )}
-                                title={icon.label}
-                              >
-                                <icon.icon className="w-5 h-5" />
-                                <span className="text-[9px] font-medium truncate w-full text-center">
-                                  {icon.id.length > 8
-                                    ? icon.id.substring(0, 6) + ".."
-                                    : icon.id}
-                                </span>
-                              </button>
-                            ))}
-                            {filteredIcons.length === 0 && (
-                              <div className="col-span-4 py-8 text-center text-xs text-muted-foreground italic">
-                                No icons found
-                              </div>
-                            )}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
+                      <IconPickerPopover
+                        value={currentLogo}
+                        onChange={(newVal) => {
+                          setValue(`socialLinks.${index}.logo`, newVal);
+                          // Auto-fill name only when picking from gallery and name is still empty
+                          const isUrl =
+                            newVal.startsWith("http") ||
+                            newVal.startsWith("/") ||
+                            newVal.startsWith("data:");
+                          if (!isUrl) {
+                            const found = SOCIAL_ICONS.find(
+                              (i) => i.id === newVal,
+                            );
+                            if (found) {
+                              setValue(
+                                `socialLinks.${index}.name`,
+                                found.label,
+                              );
+                            }
+                          }
+                        }}
+                        icons={SOCIAL_ICONS}
+                        variant="pill"
+                        popoverAlign="start"
+                      />
                     </div>
 
                     {/* Platform Name Input */}
