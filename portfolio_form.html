@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio Admin Dashboard V1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #0f172a;--accent-color: #3b82f6;--border-color: #e2e8f0;--bg-surface: #ffffff;
+            --bg-main: #f8fafc;}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--primary-color);
+        }
+        .step-item.active .step-indicator {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        .step-item.active .step-text {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .step-item.completed .step-indicator {
+            background-color: #dbeafe;color: var(--accent-color);
+            border-color: transparent;
+        }
+        .step-line {
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-color);
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            z-index: 0;
+        }
+        .input-group label {
+            @apply block text-sm font-medium text-slate-700 mb-1;
+        }
+        .input-group input, .input-group textarea, .input-group select {
+            @apply w-full rounded-lg border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2.5 px-3 transition-colors duration-200;
+        }
+        .card-section {
+            @apply bg-white rounded-xl border border-slate-200 shadow-sm p-6 mb-6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row">
+<aside class="w-full md:w-72 bg-white border-r border-slate-200 flex-shrink-0 sticky top-0 h-screen overflow-y-auto hidden md:block">
+<div class="p-8">
+<div class="flex items-center gap-2 mb-10">
+<div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+</div>
+<h1 class="font-semibold text-lg tracking-tight text-slate-900">PortfolioAdmin</h1>
+</div>
+<nav class="relative">
+<div class="absolute left-[15px] top-4 bottom-10 w-[2px] bg-slate-100 z-0"></div>
+<div class="step-item active relative z-10 flex gap-4 mb-8 group cursor-pointer">
+<div class="step-indicator w-8 h-8 rounded-full border-2 border-slate-200 bg-white flex items-center justify-center text-xs transition-colors duration-200">
+                        1
+                    </div>
+<div class="pt-1">
+<span class="step-text block text-slate-500 text-sm font-medium transition-colors duration-200">Profile Information</span>
+<p class="text-xs text-slate-400 mt-1">Basic details &amp; bio</p>
+</div>
+</div>
+<div class="step-item completed relative z-10 flex gap-4 mb-8 group cursor-pointer">
+<div class="step-indicator w-8 h-8 rounded-full border-2 border-slate-200 bg-white flex items-center justify-center text-xs transition-colors duration-200">
+<span class="material-symbols-outlined text-sm font-semibold">check</span>
+</div>
+<div class="pt-1">
+<span class="step-text block text-slate-900 text-sm font-medium transition-colors duration-200">Skills &amp; Tech</span>
+<p class="text-xs text-slate-400 mt-1">Tech stack proficiency</p>
+</div>
+</div>
+<div class="step-item relative z-10 flex gap-4 mb-8 group cursor-pointer">
+<div class="step-indicator w-8 h-8 rounded-full border-2 border-slate-200 bg-white text-slate-400 flex items-center justify-center text-xs transition-colors duration-200 group-hover:border-blue-300">
+                        3
+                    </div>
+<div class="pt-1">
+<span class="step-text block text-slate-500 text-sm font-medium transition-colors duration-200 group-hover:text-slate-700">Projects</span>
+<p class="text-xs text-slate-400 mt-1">Case studies &amp; work</p>
+</div>
+</div>
+<div class="step-item relative z-10 flex gap-4 mb-8 group cursor-pointer">
+<div class="step-indicator w-8 h-8 rounded-full border-2 border-slate-200 bg-white text-slate-400 flex items-center justify-center text-xs transition-colors duration-200 group-hover:border-blue-300">
+                        4
+                    </div>
+<div class="pt-1">
+<span class="step-text block text-slate-500 text-sm font-medium transition-colors duration-200 group-hover:text-slate-700">Experience</span>
+<p class="text-xs text-slate-400 mt-1">Work history</p>
+</div>
+</div>
+<div class="step-item relative z-10 flex gap-4 group cursor-pointer">
+<div class="step-indicator w-8 h-8 rounded-full border-2 border-slate-200 bg-white text-slate-400 flex items-center justify-center text-xs transition-colors duration-200 group-hover:border-blue-300">
+                        5
+                    </div>
+<div class="pt-1">
+<span class="step-text block text-slate-500 text-sm font-medium transition-colors duration-200 group-hover:text-slate-700">Education</span>
+<p class="text-xs text-slate-400 mt-1">Degrees &amp; courses</p>
+</div>
+</div>
+</nav>
+</div>
+<div class="p-8 mt-auto border-t border-slate-200">
+<button class="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900">
+<span class="material-symbols-outlined">logout</span>
+                Sign Out
+            </button>
+</div>
+</aside>
+<div class="md:hidden bg-white border-b border-slate-200 p-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+</div>
+<span class="font-semibold text-slate-900">PortfolioAdmin</span>
+</div>
+<button class="p-2 text-slate-600">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<main class="flex-1 p-6 md:p-12 overflow-y-auto max-w-5xl mx-auto w-full">
+<header class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-2xl font-semibold text-slate-900">Manage Content</h2>
+<p class="text-slate-500 mt-1">Update your portfolio details and showcase your work.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+                    Discard Changes
+                </button>
+<button class="px-4 py-2 text-sm font-medium text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
+                    Save Changes
+                </button>
+</div>
+</header>
+<section class="card-section" id="profile-section">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="bg-blue-50 p-2 rounded-lg text-blue-600">
+<span class="material-symbols-outlined">person</span>
+</div>
+<h3 class="text-lg font-semibold text-slate-900">Profile Details</h3>
+</div>
+<span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full border border-green-100">Public</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-slate-700 mb-2">Profile Picture</label>
+<div class="flex items-center gap-6">
+<div class="h-24 w-24 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden relative group">
+<img alt="Current profile" class="object-cover w-full h-full opacity-100 group-hover:opacity-75 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA48csFxJaZcAQkfj5b3wlEb0FpnNoamLAIpPx3ycED9-yBBl6gbKLO3HjhvTOu6lHZEBhEA6MDRH8dXbE2LFoFEL7yAAxoxpb7YDycd9lR_lMNKBVVyNPvnKGYnODMiEHRPSYusocZ5UDVbXM-1zfRH-YsFZJX14C-m6lutECv4NGWILybXfDsVmWIBLkmUR8CnGr6g2qNBQube4SgDa-Ig8mbb1eOcY7yzqbeLEabbcyEIxNXKHKO_tEFXk06qSq1wexHKOQrUc7O"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
+                                Upload New
+                            </button>
+<span class="text-xs text-slate-500">Recommended: 400x400px JPG or PNG.</span>
+</div>
+</div>
+</div>
+<div class="input-group">
+<label for="name">Full Name</label>
+<input id="name" placeholder="John Doe" type="text" value="John Doe"/>
+</div>
+<div class="input-group">
+<label for="email">Email Address</label>
+<input id="email" placeholder="john@example.com" type="email" value="john@doe.com"/>
+</div>
+<div class="input-group md:col-span-2">
+<label for="shortDescription">Short Bio (Headline)</label>
+<input id="shortDescription" placeholder="Full Stack Developer based in SF..." type="text" value="Creative Developer building digital experiences."/>
+</div>
+<div class="input-group md:col-span-2">
+<label for="longDescription">About Me</label>
+<textarea id="longDescription" placeholder="Write a few paragraphs about yourself..." rows="4">I am a passionate developer with 5+ years of experience in building modern web applications using React, Node.js, and MongoDB.</textarea>
+</div>
+<div class="input-group md:col-span-2">
+<label for="resume">Resume Link</label>
+<div class="flex">
+<span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-slate-200 bg-slate-50 text-slate-500 text-sm">
+<span class="material-symbols-outlined text-lg">link</span>
+</span>
+<input class="!rounded-l-none" id="resume" placeholder="https://drive.google.com/..." type="text" value="https://resume.io/johndoe"/>
+</div>
+</div>
+</div>
+</section>
+<section class="card-section">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="bg-indigo-50 p-2 rounded-lg text-indigo-600">
+<span class="material-symbols-outlined">share</span>
+</div>
+<h3 class="text-lg font-semibold text-slate-900">Social Links</h3>
+</div>
+<button class="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add Link
+                </button>
+</div>
+<div class="space-y-4">
+<div class="bg-slate-50 rounded-lg p-4 border border-slate-200 group relative">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<div class="md:col-span-3 input-group">
+<label class="text-xs">Platform Name</label>
+<input class="!py-2 !text-xs" type="text" value="GitHub"/>
+</div>
+<div class="md:col-span-8 input-group">
+<label class="text-xs">URL</label>
+<input class="!py-2 !text-xs" type="text" value="https://github.com/johndoe"/>
+</div>
+<div class="md:col-span-1 flex items-end">
+<div class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 text-lg">code</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 rounded-lg p-4 border border-slate-200 group relative">
+<button class="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<div class="md:col-span-3 input-group">
+<label class="text-xs">Platform Name</label>
+<input class="!py-2 !text-xs" type="text" value="LinkedIn"/>
+</div>
+<div class="md:col-span-8 input-group">
+<label class="text-xs">URL</label>
+<input class="!py-2 !text-xs" type="text" value="https://linkedin.com/in/johndoe"/>
+</div>
+<div class="md:col-span-1 flex items-end">
+<div class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-600 text-lg">work</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="card-section" id="projects-section">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="bg-purple-50 p-2 rounded-lg text-purple-600">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-slate-900">Projects</h3>
+<p class="text-xs text-slate-500">Showcase your best work</p>
+</div>
+</div>
+<button class="px-3 py-2 bg-slate-900 text-white text-sm rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Project
+                </button>
+</div>
+<div class="border border-slate-200 rounded-xl overflow-hidden mb-6 hover:shadow-md transition-shadow duration-200">
+<div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="h-2 w-2 rounded-full bg-green-500"></div>
+<h4 class="font-medium text-slate-900">E-Commerce Dashboard</h4>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="input-group md:col-span-2">
+<label>Project Title</label>
+<input type="text" value="E-Commerce Dashboard"/>
+</div>
+<div class="input-group md:col-span-2">
+<label>Description</label>
+<textarea rows="3">A comprehensive dashboard for managing online stores, built with Next.js and Tailwind.</textarea>
+</div>
+<div class="input-group">
+<label>Repository Link</label>
+<input type="text" value="github.com/user/project"/>
+</div>
+<div class="input-group">
+<label>Live Demo Link</label>
+<input type="text" value="project-demo.com"/>
+</div>
+<div class="input-group md:col-span-2">
+<label>Tags (Comma separated)</label>
+<input type="text" value="React, Node.js, MongoDB, Tailwind"/>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-slate-700 mb-2">Project Images</label>
+<div class="flex gap-4 overflow-x-auto py-2">
+<div class="relative w-32 h-20 rounded-lg overflow-hidden flex-shrink-0 group">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe33ZdQFdFoy3IQomiCK4PFJWK5Qllqf2lnsa7pqGQcmdpd1dpMvEFKjmWaEsigCTYXE1_JI1xjvRSHIXROWJekup0rJUFPGwzspCsYcOcS_Fp5WFdp09mVcwwr8m2I720ATFUnmPVo35HO6z_Yn54bHH21yN8RoPNF8XBO30tHDC5s--w3RlrkLZZavV2aHHJRHGdBkHgCu6TwDGztVPPGH4Blu9MQVJ5-m1moZHmE_X3njKMXRLQT4FguuYLcUj4MsP4nSJ86qiR"/>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="text-white hover:text-red-400">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</div>
+<div class="w-32 h-20 rounded-lg border-2 border-dashed border-slate-300 flex flex-col items-center justify-center text-slate-400 hover:border-blue-400 hover:text-blue-500 cursor-pointer transition-colors flex-shrink-0 bg-slate-50">
+<span class="material-symbols-outlined text-xl">add_photo_alternate</span>
+<span class="text-[10px] mt-1">Add Image</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-slate-50 transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mb-3 group-hover:bg-white group-hover:shadow-sm transition-all">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-blue-500 transition-colors">add</span>
+</div>
+<h4 class="text-sm font-medium text-slate-900">Add Another Project</h4>
+<p class="text-xs text-slate-500 mt-1">Showcase more of your amazing work</p>
+</div>
+</section>
+<section class="card-section">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="bg-orange-50 p-2 rounded-lg text-orange-600">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<h3 class="text-lg font-semibold text-slate-900">Skills</h3>
+</div>
+<button class="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add Skill
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center gap-4">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center border border-slate-200 text-xl font-semibold text-slate-700">JS</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-slate-900">JavaScript</span>
+<span class="text-xs text-slate-500">90%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5">
+<div class="bg-yellow-400 h-1.5 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<button class="text-slate-400 hover:text-red-500">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center gap-4">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center border border-slate-200 text-xl font-semibold text-blue-500">TS</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-slate-900">TypeScript</span>
+<span class="text-xs text-slate-500">85%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5">
+<div class="bg-blue-500 h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<button class="text-slate-400 hover:text-red-500">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
+<section class="card-section">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="bg-teal-50 p-2 rounded-lg text-teal-600">
+<span class="material-symbols-outlined">work_history</span>
+</div>
+<h3 class="text-lg font-semibold text-slate-900">Experience</h3>
+</div>
+<button class="text-sm font-medium text-blue-600 hover:text-blue-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add Job
+                </button>
+</div>
+<div class="bg-white border border-slate-200 rounded-lg p-5 mb-4 relative hover:border-blue-300 transition-colors">
+<div class="absolute right-4 top-4 flex gap-2">
+<button class="text-slate-400 hover:text-blue-500">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-slate-500">business</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-slate-900">Senior Frontend Developer</h4>
+<p class="text-xs text-slate-500 font-medium">TechCorp Inc. • San Francisco, CA</p>
+<p class="text-xs text-slate-400 mt-1">Jan 2021 - Present</p>
+<p class="text-sm text-slate-600 mt-3 leading-relaxed">
+                            Leading the frontend team in rebuilding the core product dashboard using React and TypeScript. Improved performance by 40%.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+</body></html>

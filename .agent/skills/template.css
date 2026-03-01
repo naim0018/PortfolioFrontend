@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *, .admin-dark *));
+
+@theme {
+  --font-sans: "Inter", "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Standardizing Radius */
+  --radius-xl: 0.75rem; 
+  --radius-lg: 0.5rem;
+  --radius-md: 0.375rem;
+  --radius-sm: 0.25rem;
+
+  /* Shadcn-like Core Tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Global Brand Variables (Primary System) */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-shadow: rgba(79, 70, 229, 0.15);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%; 
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+  }
+
+  /* Dynamic Theme Overrides */
+  .theme-emerald {
+    --color-brand-50: #ecfdf5; --color-brand-500: #10b981; --color-brand-600: #059669; --color-brand-700: #047857;
+    --color-brand-shadow: rgba(5, 150, 105, 0.15);
+  }
+
+  /* Global Base Styles */
+  * { @apply border-border outline-ring/50; }
+  html, body { @apply bg-slate-50 text-slate-900 font-sans antialiased; }
+
+  /* Globally Reduced Font Sizes for Information Density */
+  h1 { @apply text-xl font-semibold tracking-tight; }
+  h2 { @apply text-lg font-semibold tracking-tight; }
+  p, span, div { @apply font-normal text-sm; }
+  .text-sm { @apply text-xs; }
+  .text-base { @apply text-sm; }
+}
+
+/* ── Scoped Admin Dark Mode ─────────────────────────────────────────────────── */
+.admin-dark {
+  --adm-bg:          #0f1117;
+  --adm-surface:     #161b27;
+  --adm-surface-2:   #1c2336;
+  --adm-border:      #2a3347;
+  --adm-text-primary:   #ffffff;
+  --adm-text-secondary: #e2e8f0;
+  --adm-text-muted:     #94a3b8;
+  color-scheme: dark;
+}
+
+.admin-dark, .admin-dark main {
+  background-color: var(--adm-bg);
+  color: var(--adm-text-primary);
+}
+
+/* Force overrides for typical light-mode utilities within admin-dark */
+.admin-dark .bg-white { background-color: var(--adm-surface) !important; }
+.admin-dark .text-slate-900, .admin-dark .text-slate-800 { color: var(--adm-text-primary) !important; }
+.admin-dark .border-slate-200 { border-color: var(--adm-border) !important; }

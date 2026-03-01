@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *, .admin-dark *));
+
+@theme {
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Standardizing Radius */
+  --radius-xl: 0.75rem;
+  --radius-lg: 0.5rem;
+  --radius-md: 0.375rem;
+  --radius-sm: 0.25rem;
+
+  /* Shadcn-like Core Tokens */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Global Brand Variables (Primary System) */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-shadow: rgba(79, 70, 229, 0.15);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.1 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 13% 91%; /* This is gray-200 */
+    --input: 220 13% 91%;
+    --ring: 222.2 84% 4.9%;
+
+    --color-border: hsl(var(--border));
+    --color-input: hsl(var(--input));
+    --color-ring: hsl(var(--ring));
+    --color-background: hsl(var(--background));
+    --color-foreground: hsl(var(--foreground));
+  }
+
+  /* Dynamic Theme Overrides */
+  .theme-emerald {
+    --color-brand-50: #ecfdf5;
+    --color-brand-500: #10b981;
+    --color-brand-600: #059669;
+    --color-brand-700: #047857;
+    --color-brand-shadow: rgba(5, 150, 105, 0.15);
+  }
+
+  /* Global Base Styles */
+  * {
+    @apply outline-ring/50;
+  }
+  html,
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+
+  /* Globally Reduced Font Sizes for Information Density */
+  h1 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+  h2 {
+    @apply text-lg font-semibold tracking-tight;
+  }
+  p,
+  span,
+  div {
+    @apply font-medium text-sm;
+  }
+  .text-sm {
+    @apply text-xs;
+  }
+  .text-base {
+    @apply text-sm;
+  }
+
+  /* Default Border Style */
+  .border {
+    border-color: var(--color-border);
+  }
+}
+
+/* ── Scoped Admin Dark Mode & Global Dark Mode ────────────────────────────── */
+.admin-dark,
+.dark {
+  --adm-bg: #0f1117;
+  --adm-surface: #161b27;
+  --adm-surface-2: #1c2336;
+  --adm-border: #2a3347;
+  --adm-text-primary: #ffffff;
+  --adm-text-secondary: #e2e8f0;
+  --adm-text-muted: #94a3b8;
+  color-scheme: dark;
+}
+
+.admin-dark,
+.admin-dark main,
+.dark,
+.dark main {
+  background-color: var(--adm-bg);
+  color: var(--adm-text-primary);
+}
+
+/* Force overrides for typical light-mode utilities within dark mode */
+.admin-dark .bg-white,
+.dark .bg-white {
+  background-color: var(--adm-surface) !important;
+}
+.admin-dark .text-slate-900,
+.admin-dark .text-slate-800,
+.dark .text-slate-900,
+.dark .text-slate-800 {
+  color: var(--adm-text-primary) !important;
+}
+.admin-dark .border-slate-200,
+.admin-dark .border-gray-200,
+.dark .border-slate-200,
+.dark .border-gray-200 {
+  border-color: var(--adm-border) !important;
+}
+
+/* Dashboard Layout Specifics */
+.admin-dark .bg-gray-50,
+.dark .bg-gray-50 {
+  background-color: var(--adm-bg) !important;
+}
+.admin-dark aside,
+.dark aside {
+  background-color: var(--adm-surface) !important;
+  border-right-color: var(--adm-border) !important;
+}
+.admin-dark header,
+.dark header {
+  background-color: var(--adm-surface) !important;
+  border-bottom-color: var(--adm-border) !important;
+}
