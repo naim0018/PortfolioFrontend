@@ -8,69 +8,131 @@ import {
   Link as LinkIcon,
   AlertCircle,
   Sparkles,
+  Link2,
+  ImageOff,
+  X,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ProfileDetailsForm = () => {
   const {
     register,
+    watch,
+    setValue,
     formState: { errors },
   } = useFormContext<ProfileFormData>();
 
+  const profilePicture = watch("profilePicture");
+
   return (
     <section className="bg-white dark:bg-slate-900 rounded-2xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
-      {/* Header with Background Pattern */}
       <div className="p-8 space-y-10">
-        {/* Profile Picture Section */}
+        {/* ── Profile Picture Section ── */}
         <div className="group">
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="relative">
+          <div className="flex flex-col md:flex-row items-start gap-10">
+            {/* Live avatar preview */}
+            <div className="relative shrink-0">
               <div className="h-32 w-32 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-border flex items-center justify-center overflow-hidden relative transition-all duration-500 group-hover:border-brand-500 group-hover:shadow-2xl group-hover:shadow-brand-500/10 group-hover:-translate-y-1">
-                <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&h=200&auto=format&fit=crop"
-                  alt="Profile"
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-brand-600/60 backdrop-blur-[4px] cursor-pointer">
+                {profilePicture ? (
+                  <>
+                    <img
+                      src={profilePicture}
+                      alt="Profile"
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display =
+                          "none";
+                        (
+                          e.currentTarget.nextElementSibling as HTMLElement
+                        ).style.display = "flex";
+                      }}
+                    />
+                    {/* broken-image fallback */}
+                    <div className="hidden w-full h-full items-center justify-center flex-col gap-1 text-muted-foreground/30">
+                      <ImageOff className="w-8 h-8" />
+                      <span className="text-[8px] font-bold uppercase tracking-widest">
+                        Invalid URL
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center gap-1 text-muted-foreground/20">
+                    <Camera className="w-10 h-10" />
+                    <span className="text-[9px] font-bold uppercase tracking-widest">
+                      No Image
+                    </span>
+                  </div>
+                )}
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-brand-600/60 backdrop-blur-[4px]">
                   <Camera className="w-8 h-8 text-white animate-bounce" />
                 </div>
               </div>
+
+              {/* Online badge */}
               <div className="absolute -bottom-2 -right-2 bg-white dark:bg-slate-900 p-2 rounded-xl shadow-lg border border-border group-hover:scale-110 transition-transform">
                 <div className="w-4 h-4 rounded-full bg-brand-600" />
               </div>
             </div>
 
-            <div className="flex-1 space-y-4">
+            {/* URL input + meta */}
+            <div className="flex-1 space-y-4 w-full">
               <div>
                 <h4 className="text-base font-semibold text-foreground">
-                  Avatar Image
+                  Profile Image
                 </h4>
                 <p className="text-xs text-muted-foreground font-medium mt-1">
-                  Recommended: 400x400px squared image.
+                  Paste a publicly accessible image URL.
                 </p>
               </div>
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  className="px-6 py-2.5 text-xs font-semibold text-white bg-brand-600 rounded-xl hover:bg-brand-700 transition-all duration-300 shadow-lg shadow-brand-600/20 border border-brand-500/50"
+
+              {/* URL input */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="profilePicture"
+                  className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5"
                 >
-                  Upload New
-                </button>
-                <button
-                  type="button"
-                  className="px-6 py-2.5 text-xs font-semibold text-muted-foreground bg-secondary hover:bg-muted rounded-xl transition-all duration-300 border border-border"
-                >
-                  Remove
-                </button>
+                  <Link2 className="w-3 h-3" /> Image URL
+                </label>
+                <div className="relative group/input flex items-center">
+                  <Link2 className="absolute left-4 w-4 h-4 text-muted-foreground group-focus-within/input:text-brand-500 transition-colors z-10" />
+                  <input
+                    id="profilePicture"
+                    {...register("profilePicture")}
+                    placeholder="https://example.com/your-photo.jpg"
+                    className="w-full pl-11 pr-10 py-3.5 bg-slate-50 dark:bg-slate-800/50 border border-border rounded-xl text-sm font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 shadow-sm"
+                  />
+                  {/* Clear button */}
+                  <AnimatePresence>
+                    {profilePicture && (
+                      <motion.button
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        type="button"
+                        onClick={() =>
+                          setValue("profilePicture", "", {
+                            shouldValidate: true,
+                          })
+                        }
+                        className="absolute right-3 w-6 h-6 flex items-center justify-center rounded-lg bg-muted hover:bg-destructive/10 hover:text-destructive text-muted-foreground transition-all"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </motion.button>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
+
+              {errors.profilePicture && (
+                <p className="text-destructive text-[10px] font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5" />{" "}
+                  {errors.profilePicture.message}
+                </p>
+              )}
             </div>
           </div>
-          <input type="hidden" {...register("profilePicture")} />
-          {errors.profilePicture && (
-            <p className="text-destructive text-xs mt-3 font-semibold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4" />
-              {errors.profilePicture.message}
-            </p>
-          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
@@ -121,7 +183,7 @@ const ProfileDetailsForm = () => {
             )}
           </div>
 
-          {/* Short Bio */}
+          {/* Headline */}
           <div className="md:col-span-2 flex flex-col space-y-2.5">
             <label
               htmlFor="shortDescription"
@@ -143,7 +205,7 @@ const ProfileDetailsForm = () => {
             )}
           </div>
 
-          {/* About Me */}
+          {/* Professional Narrative */}
           <div className="md:col-span-2 flex flex-col space-y-2.5">
             <label
               htmlFor="longDescription"
@@ -166,7 +228,7 @@ const ProfileDetailsForm = () => {
             )}
           </div>
 
-          {/* Resume Link */}
+          {/* Resume URL */}
           <div className="md:col-span-2 flex flex-col space-y-2.5">
             <label
               htmlFor="resume"
