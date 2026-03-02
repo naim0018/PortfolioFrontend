@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { ProfileFormData } from "./schemas";
+import { ProfileFormData, ProjectData } from "./schemas";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Rocket,
@@ -176,7 +176,7 @@ const ImageGalleryManager = ({
 ───────────────────────────────────────────────────────────────────────────── */
 interface ProjectCardProps {
   index: number;
-  project: any;
+  project: Partial<ProjectData>;
   register: UseFormRegister<ProfileFormData>;
   control: Control<ProfileFormData>;
   setValue: UseFormSetValue<ProfileFormData>;
@@ -257,14 +257,24 @@ const ProjectCard = ({
           <div className="mt-8 space-y-4">
             <div className="space-y-1.5 text-center">
               <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest block">
-                Project Title
+                Project Title <span className="text-destructive">*</span>
               </label>
               <input
                 id={`project-title-${index}`}
                 {...register(`projects.${index}.title`)}
                 placeholder="e.g. Neural Nexus AI"
-                className="w-full text-center text-xl font-semibold text-foreground border border-border rounded-xl p-2 bg-transparent focus:ring-0 placeholder:text-muted-foreground/20 italic"
+                className={`w-full text-center text-xl font-semibold text-foreground border rounded-xl p-2 bg-transparent focus:ring-0 placeholder:text-muted-foreground/20 italic transition-colors ${
+                  errors.projects?.[index]?.title
+                    ? "border-destructive"
+                    : "border-border"
+                }`}
               />
+              {errors.projects?.[index]?.title && (
+                <p className="text-destructive text-[10px] font-semibold flex items-center justify-center gap-1">
+                  <AlertCircle className="w-3 h-3" />
+                  {errors.projects[index].title?.message}
+                </p>
+              )}
             </div>
             <div className="flex justify-center">
               <div className="h-1 w-12 bg-brand-600 rounded-full group-hover:w-20 transition-all duration-500" />
@@ -285,8 +295,18 @@ const ProjectCard = ({
               {...register(`projects.${index}.description`)}
               rows={4}
               placeholder="Elaborate on the challenges, technical decisions, and standard-setting results..."
-              className="w-full rounded-xl border border-border bg-slate-50 dark:bg-slate-800/40 shadow-inner focus:border-brand-500/50 focus:ring-4 focus:ring-brand-500/10 focus:bg-white dark:focus:bg-slate-900 sm:text-sm py-5 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground italic placeholder:text-muted-foreground/30"
+              className={`w-full rounded-xl border bg-slate-50 dark:bg-slate-800/40 shadow-inner focus:ring-4 focus:ring-brand-500/10 focus:bg-white dark:focus:bg-slate-900 sm:text-sm py-5 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground italic placeholder:text-muted-foreground/30 ${
+                errors.projects?.[index]?.description
+                  ? "border-destructive focus:border-destructive"
+                  : "border-border focus:border-brand-500/50"
+              }`}
             />
+            {errors.projects?.[index]?.description && (
+              <p className="text-destructive text-[10px] font-semibold flex items-center gap-1 pl-1">
+                <AlertCircle className="w-3 h-3" />
+                {errors.projects[index].description?.message}
+              </p>
+            )}
           </div>
 
           {/* Links row */}
@@ -398,13 +418,34 @@ const ProjectCard = ({
       <AnimatePresence>
         {errors.projects?.[index] && (
           <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            className="px-8 py-3 bg-destructive/5 text-destructive text-[10px] font-semibold uppercase tracking-widest flex items-center gap-2 border-t border-destructive/10"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="px-8 py-4 bg-destructive/5 border-t border-destructive/10 space-y-1"
           >
-            <AlertCircle className="w-3.5 h-3.5" />
-            Infrastructure Validation Failure: Missing required engineering
-            metrics.
+            <p className="text-destructive text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              Please fix the following before saving:
+            </p>
+            <ul className="pl-6 space-y-0.5">
+              {([
+                "title",
+                "description",
+                "coverImage",
+                "link",
+                "repositoryLink",
+              ] as const).map((field) => {
+                const msg = errors.projects?.[index]?.[field]?.message;
+                return msg ? (
+                  <li
+                    key={field}
+                    className="text-destructive/80 text-[10px] font-semibold list-disc"
+                  >
+                    {msg}
+                  </li>
+                ) : null;
+              })}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>

@@ -87,6 +87,11 @@ const Profile = () => {
     }
   };
 
+  const onError = (errors: any) => {
+    console.error("Validation errors:", errors);
+    toast.error("Please check the form for errors");
+  };
+
   const renderActiveSection = () => {
     switch (activeTab) {
       case "profile":
@@ -208,7 +213,7 @@ const Profile = () => {
             </button>
             <button
               type="button"
-              onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(onSubmit, onError)}
               disabled={isUpdating || isCreating}
               className="px-6 py-2.5 text-xs font-semibold text-white bg-brand-600 rounded-xl hover:bg-brand-700 transition-all duration-300 shadow-lg shadow-brand-shadow disabled:opacity-50 flex items-center gap-2"
             >
@@ -234,7 +239,7 @@ const Profile = () => {
 
         <div className="flex-1 w-full min-h-[600px]">
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
               <AnimatePresence mode="wait">
                 {renderActiveSection()}
               </AnimatePresence>
