@@ -12,6 +12,7 @@ export const publicRoutes = [
     path: "/",
     element: <Home />,
   },
+
   {
     label: "About",
     path: "/about",

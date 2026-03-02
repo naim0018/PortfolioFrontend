@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { adminRoutes } from "@/routes/AdminRoutes";
 import { menuGenerator, MenuItem } from "@/utils/Generator/MenuGenerator";
 import { Location } from "react-router-dom";
+import { useAppSelector } from "@/hooks/useRedux";
+import { userRoute } from "@/routes/UserRoute";
 // Sub-component to handle recursive levels and isolated hover states
 const NavItem = ({
   item,
@@ -107,7 +109,11 @@ const NavItem = ({
 };
 
 const Sidebar = () => {
-  const menu = menuGenerator(adminRoutes, "");
+  const role = useAppSelector((state) => state.auth.user?.role);
+  const menu = menuGenerator(
+    role === "admin" ? adminRoutes : userRoute,
+    role === "admin" ? "" : "/user",
+  );
   const location = useLocation();
 
   const groupedMenu = menu.reduce<Record<string, MenuItem[]>>((acc, item) => {
@@ -120,8 +126,8 @@ const Sidebar = () => {
   return (
     <aside className="w-64 h-screen bg-gray-700 text-white sticky top-0 z-40 flex flex-col">
       <div className="p-4 h-16 text-xl font-semibold border-b border-gray-600 flex items-center">
-        <Link to="/" className="no-underline">
-          React Starter Pack
+        <Link to="" className="no-underline">
+          Portfolio Builder
         </Link>
       </div>
 

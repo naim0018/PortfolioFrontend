@@ -56,6 +56,62 @@ export const portfolioApi = baseApi.injectEndpoints({
         { type: 'Portfolio', id: 'LIST' },
       ],
     }),
+
+    trackProfileEvent: builder.mutation<{ success: boolean; data: any }, { id: string; eventType: string }>({
+      query: ({ id, eventType }) => ({
+        url: `/user/track/${id}`,
+        method: 'POST',
+        body: { eventType },
+      }),
+      invalidatesTags: (_, __, { id }) => [{ type: 'Portfolio', id }],
+    }),
+
+    // Superadmin: User Management
+    getUsers: builder.query<{ success: boolean; data: any[] }, void>({
+      query: () => '/user',
+      providesTags: ['Users'],
+    }),
+
+    updateUserRole: builder.mutation<{ success: boolean; data: any }, { id: string; role: string }>({
+      query: ({ id, role }) => ({
+        url: `/user/role/${id}`,
+        method: 'PATCH',
+        body: { role },
+      }),
+      invalidatesTags: ['Users'],
+    }),
+
+    // Superadmin: Template Portfolio
+    getTemplates: builder.query<{ success: boolean; data: any[] }, void>({
+      query: () => '/template-portfolio',
+      providesTags: ['Templates'],
+    }),
+
+    createTemplate: builder.mutation<{ success: boolean; data: any }, any>({
+      query: (body) => ({
+        url: '/template-portfolio',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Templates'],
+    }),
+
+    updateTemplate: builder.mutation<{ success: boolean; data: any }, { id: string; body: any }>({
+      query: ({ id, body }) => ({
+        url: `/template-portfolio/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Templates'],
+    }),
+
+    deleteTemplate: builder.mutation<{ success: boolean; data: any }, string>({
+      query: (id) => ({
+        url: `/template-portfolio/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Templates'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -66,6 +122,13 @@ export const {
   useCreatePortfolioMutation,
   useUpdatePortfolioMutation,
   useDeletePortfolioMutation,
+  useTrackProfileEventMutation,
+  useGetUsersQuery,
+  useUpdateUserRoleMutation,
+  useGetTemplatesQuery,
+  useCreateTemplateMutation,
+  useUpdateTemplateMutation,
+  useDeleteTemplateMutation,
 } = portfolioApi;
 
 export default portfolioApi;

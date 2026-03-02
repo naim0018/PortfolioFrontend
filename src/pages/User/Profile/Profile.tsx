@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,7 +14,7 @@ import ExperienceSection from "./Components/ExperienceSection";
 import EducationSection from "./Components/EducationSection";
 import NavigationSidebar, { TabId } from "./Components/NavigationSidebar";
 import {
-  useGetPortfoliosQuery,
+  useGetSinglePortfolioQuery,
   useUpdatePortfolioMutation,
   useCreatePortfolioMutation,
 } from "@/store/Api/portfolio.api";
@@ -21,13 +23,18 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState<TabId>("profile");
   const [completedTabs, setCompletedTabs] = useState<TabId[]>([]);
 
-  const { data: portfolios, isLoading: isFetching } = useGetPortfoliosQuery();
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const { data: portfolioResponse, isLoading: isFetching } = useGetSinglePortfolioQuery(
+    user?.id as string,
+    { skip: !user?.id }
+  );
   const [updatePortfolio, { isLoading: isUpdating }] =
     useUpdatePortfolioMutation();
   const [createPortfolio, { isLoading: isCreating }] =
     useCreatePortfolioMutation();
 
-  const portfolioData = portfolios?.data?.[0];
+  const portfolioData = portfolioResponse?.data;
 
   const methods = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -40,7 +47,7 @@ const Profile = () => {
     },
   });
 
-  const { reset, handleSubmit, watch } = methods;
+  const { reset, handleSubmit, watch, setValue } = methods;
 
   // Use useMemo or just calculate during render if it's lightweight, 
   // but since we pass it to NavigationSidebar, keeping it as state or memo is better.
@@ -71,20 +78,38 @@ const Profile = () => {
 
   const onSubmit = async (data: ProfileFormData) => {
     try {
-      if (portfolioData?._id) {
+      // If portfolioData exists, we update. 
+      // We can use either portfolioData._id or user.id since backend now supports both.
+      if (portfolioData) {
+        const idToUpdate = portfolioData._id || user?.id;
         await updatePortfolio({
-          id: portfolioData._id as string,
+          id: idToUpdate as string,
           body: data,
         }).unwrap();
-        toast.success("Portfolio updated successfully");
+        toast.success(`Portfolio ${data.status === 'draft' ? 'saved as draft' : 'updated'} successfully`);
       } else {
-        await createPortfolio(data).unwrap();
-        toast.success("Portfolio created successfully");
+        // Prepare creation payload with userId
+        const creationData = {
+          ...data,
+          userId: user?.id,
+        };
+        await createPortfolio(creationData as any).unwrap();
+        toast.success(`Portfolio ${data.status === 'draft' ? 'saved as draft' : 'created'} successfully`);
       }
     } catch (error) {
       console.error("Failed to save portfolio:", error);
       toast.error("Failed to save portfolio");
     }
+  };
+
+  const handleSaveDraft = () => {
+    setValue("status", "draft");
+    handleSubmit(onSubmit, onError)();
+  };
+
+  const handlePublish = () => {
+    setValue("status", "published");
+    handleSubmit(onSubmit, onError)();
   };
 
   const onError = (errors: any) => {
@@ -188,6 +213,13 @@ const Profile = () => {
               <h4 className="text-sm font-semibold text-foreground tracking-tight flex items-center gap-2">
                 Portfolio Integrity Status{" "}
                 <div className="w-1.5 h-1.5 rounded-full bg-brand-600 animate-pulse" />
+                {portfolioData?.status && (
+                  <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter ${
+                    portfolioData.status === 'draft' ? 'bg-amber-100 text-amber-600 border border-amber-200' : 'bg-emerald-100 text-emerald-600 border border-emerald-200'
+                  }`}>
+                    {portfolioData.status}
+                  </span>
+                )}
               </h4>
               <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest italic opacity-60">
                 Target: 100% Visibility
@@ -213,7 +245,15 @@ const Profile = () => {
             </button>
             <button
               type="button"
-              onClick={handleSubmit(onSubmit, onError)}
+              onClick={handleSaveDraft}
+              disabled={isUpdating || isCreating}
+              className="px-5 py-2.5 text-xs font-semibold text-brand-600 bg-brand-50 border border-brand-200 rounded-xl hover:bg-brand-100 transition-all duration-300"
+            >
+              Save as Draft
+            </button>
+            <button
+              type="button"
+              onClick={handlePublish}
               disabled={isUpdating || isCreating}
               className="px-6 py-2.5 text-xs font-semibold text-white bg-brand-600 rounded-xl hover:bg-brand-700 transition-all duration-300 shadow-lg shadow-brand-shadow disabled:opacity-50 flex items-center gap-2"
             >
@@ -223,7 +263,7 @@ const Profile = () => {
                   Saving...
                 </>
               ) : (
-                "Save Changes"
+                "Save & Publish"
               )}
             </button>
           </div>

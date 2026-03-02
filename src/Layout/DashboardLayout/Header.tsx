@@ -2,17 +2,23 @@ import { useState, useRef, useEffect } from "react";
 import {
   Search,
   Bell,
-  User,
+  User as UserIcon,
   Settings,
   LogOut,
   ChevronDown,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "@/store/features/AuthSlice/authSlice";
+import { RootState } from "@/store/store";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -63,16 +69,16 @@ const Header = () => {
           >
             <div className="text-right hidden sm:block">
               <p className="text-sm font-semibold text-gray-800 leading-none">
-                John Doe
+                {user?.email || "User"}
               </p>
               <p className="text-[10px] text-gray-500 uppercase mt-1 text-left">
-                Admin
+                {user?.role || "Admin"}
               </p>
             </div>
 
             <div className="relative">
-              <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white font-semibold border-2 border-gray-100 group-hover:border-gray-300 transition-all">
-                JD
+              <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white font-semibold border-2 border-gray-100 group-hover:border-gray-300 transition-all uppercase">
+                {user?.email?.charAt(0) || "U"}
               </div>
               {/* Status Indicator */}
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
@@ -98,7 +104,7 @@ const Header = () => {
                 to="/admin/profile"
                 className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors no-underline"
               >
-                <User className="w-4 h-4 text-gray-500" />
+                <UserIcon className="w-4 h-4 text-gray-500" />
                 Profile Details
               </Link>
 
@@ -112,7 +118,10 @@ const Header = () => {
 
               <div className="border-t border-gray-100 mt-2 pt-2">
                 <button
-                  onClick={() => console.log("Logging out...")}
+                  onClick={() => {
+                    dispatch(logOut());
+                    navigate("/login");
+                  }}
                   className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left transition-colors"
                 >
                   <LogOut className="w-4 h-4" />

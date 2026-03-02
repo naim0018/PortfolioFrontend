@@ -3,25 +3,17 @@ import { jwtDecode } from "jwt-decode";
 
 export interface User {
   email: string;
-  phone: string;
-  userId: string;
+  id: string;
   role: string;
+  userName: string;
   accessToken?: string;
-  refreshToken?: string;
 }
 interface AuthState {
-  user: Partial<User> | null;
+  user: User | null;
 }
 
 const initialState: AuthState = {
-  user: {
-    email: "",
-    phone: "",
-    userId: "",
-    role: "",
-    accessToken: "",
-    refreshToken: "",
-  },
+  user: null,
 };
 
 const authSlice = createSlice({
@@ -29,25 +21,17 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const decode = jwtDecode(action.payload?.accessToken as string) as User;
-      if (action.payload.refreshToken) {
-        state.user = {
-          ...state.user,
-          email: decode.email,
-          userId: decode.userId,
-          role: decode.role,
-          accessToken: action.payload.accessToken,
-          refreshToken: action.payload.refreshToken,
-        };
-      } else {
-        state.user = {
-          ...state.user,
-          email: decode.email,
-          userId: decode.userId,
-          role: decode.role,
-          accessToken: action.payload.accessToken,
-        };
-      }
+      const accessToken = action.payload?.accessToken;
+      if (!accessToken) return;
+      
+      const decode = jwtDecode(accessToken) as any;
+      state.user = {
+        email: decode.email,
+        id: decode.id,
+        role: decode.role,
+        userName: decode.userName,
+        accessToken: accessToken,
+      };
     },
     logOut: (state) => {
       state.user = null;

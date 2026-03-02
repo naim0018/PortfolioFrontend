@@ -13,10 +13,11 @@ const baseQuery = fetchBaseQuery({
     const state = getState() as any;
     const token = state.auth.user?.accessToken;
     if (token) {
-      headers.set("Authorization", `${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
+  credentials: "include",
 });
 
 const baseQueryWithReauth: BaseQueryFn<
@@ -25,27 +26,17 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 400) {
-    const state = api.getState() as any;
-    const refreshToken = state.auth.user?.refreshToken;
-    console.log(refreshToken);
-    if (!refreshToken) {
-      api.dispatch(logOut());
-      return result;
-    }
+  if (result.error && result.error.status === 401) {
     const refreshResult = await baseQuery(
       {
-        url: "user/refreshToken",
+        url: "auth/refresh-token",
         method: "POST",
-        body: {
-          authorization: refreshToken,
-        },
       },
       api,
       extraOptions
     );
     if (refreshResult.data) {
-      api.dispatch(setUser(refreshResult.data as any));
+      api.dispatch(setUser(refreshResult.data as (any)));
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOut());
@@ -58,6 +49,6 @@ const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ["Courses", "User", "Support", "Badges", "Portfolio"],
+  tagTypes: ["Courses", "User", "Support", "Badges", "Portfolio", "Users", "Templates"],
 });
 export default baseApi;

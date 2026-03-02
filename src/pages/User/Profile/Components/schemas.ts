@@ -83,6 +83,8 @@ export const profileSchema = z.object({
   skills: z.array(skillSchema).default([]),
   experience: z.array(experienceSchema).default([]),
   education: z.array(educationSchema).default([]),
+  selectedTemplate: z.string().optional(),
+  status: z.enum(["draft", "published"]).default("published"),
 });
 
 export type ProfileFormData = z.infer<typeof profileSchema>;

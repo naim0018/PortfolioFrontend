@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CiSquarePlus } from "react-icons/ci";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSignupMutation } from "@/store/Api/Auth.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/features/AuthSlice/authSlice";
+import { toast } from "sonner";
 
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -19,7 +23,6 @@ type SignupFormInputs = z.infer<typeof signupSchema>;
 
 const Signup = () => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const {
     register,
@@ -31,23 +34,39 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [signup, { isLoading }] = useSignupMutation();
 
-  const onSubmit = (data: SignupFormInputs) => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    if (selectedFile) formData.append("image", selectedFile);
+  const onSubmit = async (data: SignupFormInputs) => {
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        shortDescription: "A passionate professional",
+        longDescription: "I am a dedicated professional looking to showcase my skills and experiences.",
+      };
 
-    console.log("Signup Data:", Object.fromEntries(formData));
-    navigate("/login");
+      const result = await signup(payload).unwrap();
+      if (result.success) {
+        dispatch(
+          setUser({
+            accessToken: result.data.accessToken,
+          })
+        );
+        toast.success(result.message || "Account created successfully!");
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to create account. Please try again.");
+      console.error("Signup Failed:", error);
+    }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-      setSelectedFile(file);
       setValue("image", file, { shouldValidate: true });
     }
   };
@@ -137,11 +156,20 @@ const Signup = () => {
                 </p>
               )}
           </div>
+          <div className="mb-3">
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-400 ">
+                Login here
+              </Link>
+            </p>
+          </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            disabled={isLoading}
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
           >
-            Signup
+            {isLoading ? "Signing up..." : "Signup"}
           </button>
         </form>
       </div>
