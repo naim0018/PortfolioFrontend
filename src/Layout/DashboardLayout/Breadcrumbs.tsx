@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 import { flattenRoutes } from "@/utils/Generator/BreadcrumbsGenerator";
 import { RouteGroup } from "@/utils/Generator/MenuGenerator";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface BreadcrumbProps {
   config: RouteGroup[];
@@ -12,7 +13,7 @@ interface BreadcrumbProps {
 const Breadcrumbs = ({ config, basePath }: BreadcrumbProps) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
-
+  const role = useAppSelector((state) => state.auth.user?.role);
   // Automatically detects and flattens the provided config
   const routeMap = useMemo(
     () => flattenRoutes(config, basePath),
@@ -21,7 +22,7 @@ const Breadcrumbs = ({ config, basePath }: BreadcrumbProps) => {
 
   return (
     <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6 px-1">
-      <Link to={basePath} className="hover:text-gray-900 transition-colors">
+      <Link to={role === "admin" ? "/" : "/user"} className="hover:text-gray-900 transition-colors">
         <Home className="size-4" />
       </Link>
 

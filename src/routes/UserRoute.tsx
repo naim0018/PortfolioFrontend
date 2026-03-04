@@ -1,6 +1,6 @@
 import { ChartPie, Layout, UserCircle } from "lucide-react";
-import PortfolioTemplate from "@/pages/User/PortfolioTemplate/PortfolioTemplate";
-import TemplateGallery from "@/pages/Admin/TemplateGallery/TemplateGallery";
+import PortfolioTemplate from "@/pages/User/LivePreview/LivePreview";
+import TemplateGallery from "@/pages/User/PortfolioTemplate/TemplateGallery";
 import Profile from "@/pages/User/Profile/Profile";
 
 export const userRoute = [

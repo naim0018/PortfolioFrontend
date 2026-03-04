@@ -6,6 +6,10 @@ import { useLoginMutation } from "@/store/Api/Auth.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/features/AuthSlice/authSlice";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { User } from "@/types";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -21,8 +25,12 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "mdkazinaim0018@gmail.com",
+      password: "123456789",
+    },
   });
-
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
@@ -34,16 +42,16 @@ const Login = () => {
         dispatch(
           setUser({
             accessToken: result.data.accessToken,
-          })
+          }),
         );
-        const role = result.data.role;
+
+        const role = (jwtDecode(result.data.accessToken) as User)?.role;
         toast.success(result.message || "Logged in successfully!");
-        if(role === "admin"){
+        if (role === "admin") {
           navigate("/");
-        }else{
+        } else {
           navigate("/user");
         }
-        
       }
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to login. Please try again.");
@@ -70,18 +78,31 @@ const Login = () => {
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative grid">
             <label className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               {...register("password")}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 relative"
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
+            <div className="absolute right-3 place-self-center top-1/2">
+              {showPassword ? (
+                <Eye
+                  className="cursor-pointer text-gray-500 size-5"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <EyeOff
+                  className="cursor-pointer text-gray-500 size-5"
+                  onClick={() => setShowPassword(true)}
+                />
+              )}
+            </div>
           </div>
 
           <div className="mb-3">

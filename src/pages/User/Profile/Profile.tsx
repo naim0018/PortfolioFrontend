@@ -199,7 +199,7 @@ const Profile = () => {
         {/* Global Progress Tracking */}
         <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-border shadow-sm flex-1 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-2 h-full bg-brand-600 opacity-20" />
-          <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-brand-600/10 dark:bg-brand-600/20 flex flex-col items-center justify-center border border-brand-600/20">
+          <div className="flex-shrink-0 w-16 h-16 rounded-lg bg-brand-600/10 dark:bg-brand-600/20 flex flex-col items-center justify-center border border-brand-600/20">
             <span className="text-xl font-semibold text-brand-600 tracking-tighter">
               {Math.round((completedTabs.length / 5) * 100)}%
             </span>

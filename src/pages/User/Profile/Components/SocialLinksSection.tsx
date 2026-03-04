@@ -118,7 +118,7 @@ const SocialLinksSection = () => {
   const watchedLinks = watch("socialLinks");
 
   return (
-    <section className="bg-white dark:bg-slate-900 rounded-2xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
+    <section className="bg-white dark:bg-slate-900 rounded-xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
       <div className="px-8 py-6 border-b border-border flex justify-between items-center bg-slate-50/30 dark:bg-slate-800/10">
         <div className="flex items-center gap-4">
           <div className="bg-brand-600/10 dark:bg-brand-600/20 p-2.5 rounded-xl text-brand-600">
@@ -157,7 +157,7 @@ const SocialLinksSection = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="group relative flex flex-col md:flex-row gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-border hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all duration-300"
+                  className="group relative flex flex-col md:flex-row gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-border hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all duration-300"
                 >
                   <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     {/* Icon Selection */}
@@ -244,7 +244,7 @@ const SocialLinksSection = () => {
           </AnimatePresence>
 
           {fields.length === 0 && (
-            <div className="text-center py-12 rounded-2xl border-2 border-dashed border-border bg-slate-50/50 dark:bg-slate-800/20">
+            <div className="text-center py-12 rounded-xl border-2 border-dashed border-border bg-slate-50/50 dark:bg-slate-800/20">
               <div className="bg-white dark:bg-slate-900 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-border">
                 <Share2 className="w-6 h-6 text-muted-foreground/40" />
               </div>

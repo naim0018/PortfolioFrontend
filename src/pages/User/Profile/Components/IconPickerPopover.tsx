@@ -125,7 +125,7 @@ const IconPickerPopover = ({
           <button
             type="button"
             className={cn(
-              "w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center transition-colors border border-border shadow-inner text-brand-600 hover:ring-2 hover:ring-brand-500/30 hover:bg-brand-50 dark:hover:bg-brand-500/10 hover:border-brand-500/20",
+              "w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center transition-colors border border-border shadow-inner text-brand-600 hover:ring-2 hover:ring-brand-500/30 hover:bg-brand-50 dark:hover:bg-brand-500/10 hover:border-brand-500/20",
               triggerClassName,
             )}
           >
@@ -158,7 +158,7 @@ const IconPickerPopover = ({
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-80 p-0 rounded-2xl border-border shadow-2xl overflow-hidden bg-white dark:bg-slate-900"
+        className="w-80 p-0 rounded-xl border-border shadow-2xl overflow-hidden bg-white dark:bg-slate-900"
         align={popoverAlign}
       >
         {/* Tabs */}

@@ -1,8 +1,10 @@
 // Define a type for your user (example)
 export interface User {
     id: string;
-    name: string;
+    name?: string;
     email: string;
+    role: string;
+    userName?: string;
   }
   
   // Define a type for your app's theme (example)
@@ -14,3 +16,6 @@ export interface User {
     component: React.ComponentType;
     exact?: boolean;
   };
+
+
+  

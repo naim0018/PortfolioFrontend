@@ -25,7 +25,7 @@ const ProfileDetailsForm = () => {
   const profilePicture = watch("profilePicture");
 
   return (
-    <section className="bg-white dark:bg-slate-900 rounded-2xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
+    <section className="bg-white dark:bg-slate-900 rounded-xl border border-border shadow-sm overflow-hidden mb-8 transition-colors duration-300">
       <div className="p-8 space-y-10">
         {/* ── Profile Picture Section ── */}
         <div className="group">

@@ -8,7 +8,7 @@ import { useSignupMutation } from "@/store/Api/Auth.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/features/AuthSlice/authSlice";
 import { toast } from "sonner";
-
+import { Eye, EyeOff } from "lucide-react";
 const signupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email format"),
@@ -23,7 +23,7 @@ type SignupFormInputs = z.infer<typeof signupSchema>;
 
 const Signup = () => {
   const [preview, setPreview] = useState<string | null>(null);
-
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -44,7 +44,8 @@ const Signup = () => {
         email: data.email,
         password: data.password,
         shortDescription: "A passionate professional",
-        longDescription: "I am a dedicated professional looking to showcase my skills and experiences.",
+        longDescription:
+          "I am a dedicated professional looking to showcase my skills and experiences.",
       };
 
       const result = await signup(payload).unwrap();
@@ -52,13 +53,15 @@ const Signup = () => {
         dispatch(
           setUser({
             accessToken: result.data.accessToken,
-          })
+          }),
         );
         toast.success(result.message || "Account created successfully!");
         navigate("/");
       }
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to create account. Please try again.");
+      toast.error(
+        error?.data?.message || "Failed to create account. Please try again.",
+      );
       console.error("Signup Failed:", error);
     }
   };
@@ -107,18 +110,31 @@ const Signup = () => {
           </div>
 
           {/* Password Field */}
-          <div className="mb-4">
+          <div className="mb-4 relative grid">
             <label className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               {...register("password")}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
+            <div className="absolute right-3 place-self-center top-1/2">
+              {showPassword ? (
+                <Eye
+                  className="cursor-pointer text-gray-500 size-5"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <EyeOff
+                  className="cursor-pointer text-gray-500 size-5"
+                  onClick={() => setShowPassword(true)}
+                />
+              )}
+            </div>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
