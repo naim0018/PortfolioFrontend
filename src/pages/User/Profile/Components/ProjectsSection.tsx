@@ -89,7 +89,7 @@ const ImageGalleryManager = ({
             }}
             onKeyDown={handleKeyDown}
             placeholder="Paste image URL and press Enter…"
-            className={`w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900/40 border rounded-xl text-xs font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 transition-all ${
+            className={`w-full pl-11 pr-4 py-3 bg-background border rounded-xl text-xs font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 transition-all ${
               hasError
                 ? "border-destructive focus:border-destructive"
                 : "border-border focus:border-brand-500/50"
@@ -295,7 +295,7 @@ const ProjectCard = ({
               {...register(`projects.${index}.description`)}
               rows={4}
               placeholder="Elaborate on the challenges, technical decisions, and standard-setting results..."
-              className={`w-full rounded-xl border bg-slate-50 dark:bg-slate-800/40 shadow-inner focus:ring-4 focus:ring-brand-500/10 focus:bg-white dark:focus:bg-slate-900 sm:text-sm py-5 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground italic placeholder:text-muted-foreground/30 ${
+              className={`w-full rounded-xl border bg-background shadow-inner focus:ring-4 focus:ring-brand-500/10 sm:text-sm py-5 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground italic placeholder:text-muted-foreground/30 ${
                 errors.projects?.[index]?.description
                   ? "border-destructive focus:border-destructive"
                   : "border-border focus:border-brand-500/50"
@@ -321,7 +321,7 @@ const ProjectCard = ({
                   id={`project-repo-${index}`}
                   {...register(`projects.${index}.repositoryLink`)}
                   placeholder="github.com/organization/repo"
-                  className="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900/40 border border-border rounded-xl text-xs font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                  className="w-full pl-11 pr-4 py-3.5 bg-background border border-border rounded-xl text-xs font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                 />
               </div>
             </div>
@@ -361,7 +361,7 @@ const ProjectCard = ({
                     onTagsChange(index, (e.target as HTMLInputElement).value)
                   }
                   placeholder="e.g. Next.js 14, GraphQL, Docker, AWS Lambda..."
-                  className="w-full pl-11 pr-4 py-4 bg-slate-50 dark:bg-slate-900/40 border border-border rounded-xl text-[13px] font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 shadow-inner transition-all"
+                  className="w-full pl-11 pr-4 py-4 bg-background border border-border rounded-xl text-[13px] font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 shadow-inner transition-all"
                 />
               </div>
               <div className="flex flex-wrap gap-2.5 pt-2">
@@ -409,7 +409,7 @@ const ProjectCard = ({
               {...register(`projects.${index}.notes`)}
               rows={3}
               placeholder="Internal notes, future plans, or context for reviewers..."
-              className="w-full rounded-xl border border-border bg-slate-50 dark:bg-slate-800/40 shadow-inner focus:border-brand-500/50 focus:ring-4 focus:ring-brand-500/10 focus:bg-white dark:focus:bg-slate-900 sm:text-sm py-4 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground placeholder:text-muted-foreground/30"
+              className="w-full rounded-xl border border-border bg-background shadow-inner focus:border-brand-500/50 focus:ring-4 focus:ring-brand-500/10 sm:text-sm py-4 px-6 transition-all duration-300 resize-none leading-relaxed font-medium text-foreground placeholder:text-muted-foreground/30"
             />
           </div>
         </div>

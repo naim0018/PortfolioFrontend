@@ -131,7 +131,7 @@ const EducationSection = () => {
                             id={`education-title-${index}`}
                             {...register(`education.${index}.title`)}
                             placeholder="e.g. Stanford University"
-                            className="w-full bg-slate-50 dark:bg-slate-900 border border-border rounded-xl px-4 py-3 text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                           />
                         </div>
                         <div className="space-y-2">
@@ -142,7 +142,7 @@ const EducationSection = () => {
                             id={`education-degree-${index}`}
                             {...register(`education.${index}.degree`)}
                             placeholder="e.g. B.S. Software Engineering"
-                            className="w-full bg-slate-50 dark:bg-slate-900 border border-border rounded-xl px-4 py-3 text-sm font-semibold text-brand-600 dark:text-brand-400 placeholder:text-brand-500/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm font-semibold text-brand-600 dark:text-brand-400 placeholder:text-brand-500/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                           />
                         </div>
                       </div>
@@ -252,7 +252,7 @@ const EducationSection = () => {
                           id={`education-location-${index}`}
                           {...register(`education.${index}.location`)}
                           placeholder="City, Country"
-                          className="w-full bg-white dark:bg-slate-900 border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 transition-all"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 transition-all"
                         />
                       </div>
                       <div className="space-y-2">
@@ -264,13 +264,13 @@ const EducationSection = () => {
                             id={`education-start-${index}`}
                             {...register(`education.${index}.startDate`)}
                             placeholder="From (YYYY)"
-                            className="w-full bg-white dark:bg-slate-900 border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 text-center transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 text-center transition-all"
                           />
                           <input
                             id={`education-end-${index}`}
                             {...register(`education.${index}.endDate`)}
                             placeholder="To (YYYY)"
-                            className="w-full bg-white dark:bg-slate-900 border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 text-center transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-brand-500/50 text-center transition-all"
                           />
                         </div>
                       </div>
@@ -286,7 +286,7 @@ const EducationSection = () => {
                         {...register(`education.${index}.description`)}
                         rows={3}
                         placeholder="Highlight relevant coursework, honors, or research topics..."
-                        className="w-full bg-slate-50 dark:bg-slate-800/20 border border-border rounded-xl px-5 py-4 text-xs font-semibold text-muted-foreground placeholder:text-muted-foreground/20 italic focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-900 transition-all duration-300 resize-none leading-relaxed"
+                        className="w-full bg-background border border-border rounded-xl px-5 py-4 text-xs font-semibold text-muted-foreground placeholder:text-muted-foreground/20 italic focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-900 transition-all duration-300 resize-none leading-relaxed"
                       />
                     </div>
 

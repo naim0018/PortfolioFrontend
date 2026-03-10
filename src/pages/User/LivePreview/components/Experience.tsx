@@ -1,16 +1,7 @@
 import React from "react";
 
-interface Exp {
-  logo: string;
-  title: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-}
-
 interface ExperienceProps {
-  experience: Exp[];
+  experience: any[];
 }
 
 export const Experience: React.FC<ExperienceProps> = ({ experience }) => {
@@ -18,32 +9,24 @@ export const Experience: React.FC<ExperienceProps> = ({ experience }) => {
 
   return (
     <section className="mb-24 scroll-mt-24" id="experience">
-      <div className="mb-8 flex items-center gap-4">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 italic">
-          Experience
-        </h2>
-        <div className="h-[1px] flex-1 bg-[#ec5b13]/20"></div>
+      <div className="mb-12 flex items-center gap-4">
+        <h2 className="text-2xl font-bold text-foreground italic">Career Journey</h2>
+        <div className="h-[1px] flex-1 bg-brand-600/20"></div>
       </div>
-      <div className="relative space-y-12 before:absolute before:left-[11px] before:top-2 before:h-[calc(100%-24px)] before:w-[2px] before:bg-[#ec5b13]/20">
+      <div className="space-y-12">
         {experience.map((exp, idx) => (
-          <div key={idx} className="relative pl-10">
-            <div
-              className={`absolute left-0 top-1 h-6 w-6 rounded-full border-4 border-[#f8f6f6] dark:border-[#221610] ${
-                idx === 0 ? "bg-[#ec5b13]" : "bg-[#ec5b13]/40"
-              }`}
-            ></div>
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 italic">
-                {exp.title}
-              </h3>
-              <span className="text-sm font-mono text-[#ec5b13] font-bold">
-                {exp.startDate} — {exp.endDate || "Present"}
+          <div key={idx} className="relative pl-8 before:absolute before:left-0 before:top-2 before:bottom-0 before:w-[2px] before:bg-border">
+            <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-brand-600 ring-4 ring-background" />
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <div>
+                <h3 className="text-xl font-bold text-foreground">{exp.title}</h3>
+                <p className="text-brand-600 font-bold">{exp.company}</p>
+              </div>
+              <span className="text-sm font-bold text-muted-foreground bg-muted px-4 py-1 rounded-full">
+                {exp.startDate} — {exp.current ? "Present" : exp.endDate}
               </span>
             </div>
-            <div className="mb-2 text-sm font-medium text-slate-500 uppercase tracking-widest font-bold">
-              {exp.location}
-            </div>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-2xl">
+            <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
               {exp.description}
             </p>
           </div>

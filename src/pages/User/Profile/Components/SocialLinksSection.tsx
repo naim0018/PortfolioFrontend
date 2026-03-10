@@ -200,7 +200,7 @@ const SocialLinksSection = () => {
                       <input
                         {...register(`socialLinks.${index}.name`)}
                         placeholder="e.g. GitHub, LinkedIn..."
-                        className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-border rounded-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
+                        className="w-full px-4 py-3 bg-background border border-border rounded-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
                       />
                     </div>
 
@@ -216,7 +216,7 @@ const SocialLinksSection = () => {
                         <input
                           {...register(`socialLinks.${index}.link`)}
                           placeholder="https://..."
-                          className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-border rounded-r-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
+                          className="w-full px-4 py-3 bg-background border border-border rounded-r-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
                         />
                       </div>
                     </div>

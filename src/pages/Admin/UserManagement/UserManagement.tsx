@@ -32,9 +32,9 @@ const UserManagement = () => {
   }
 
   return (
-    <div className="admin-dark max-w-6xl mx-auto space-y-8">
+    <div className="mx-auto space-y-8 pt-0">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900 border-l-4 border-brand-600 pl-4">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground border-l-4 border-brand-600 pl-4">
           User Management
         </h2>
         <p className="mt-2 text-slate-500">
@@ -42,10 +42,10 @@ const UserManagement = () => {
         </p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-slate-200">
-            <thead className="bg-slate-50">
+            <thead className="bg-muted/30">
               <tr>
                 <th scope="col" className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                   User
@@ -73,7 +73,7 @@ const UserManagement = () => {
                         {user.name?.charAt(0) || "U"}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-semibold text-slate-900">{user.name}</div>
+                        <div className="text-sm font-semibold text-foreground">{user.name}</div>
                         <div className="text-sm text-slate-500">{user.email}</div>
                       </div>
                     </div>
@@ -83,7 +83,7 @@ const UserManagement = () => {
                       <select
                         value={selectedRole}
                         onChange={(e) => setSelectedRole(e.target.value)}
-                        className="block w-36 pl-3 pr-10 py-2 border-slate-300 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm rounded-md"
+                        className="block w-36 pl-3 pr-10 py-2 bg-background border border-border focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm rounded-md"
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>

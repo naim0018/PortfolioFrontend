@@ -6,7 +6,7 @@ import { adminRoutes } from "@/routes/AdminRoutes";
 
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background">
       {/* 1. Fixed Sidebar */}
       <Sidebar />
 

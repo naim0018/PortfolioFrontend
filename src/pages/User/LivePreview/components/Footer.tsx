@@ -6,43 +6,23 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ name }) => {
   return (
-    <footer className="mt-auto border-t border-[#ec5b13]/10 bg-white dark:bg-[#ec5b13]/5 py-12">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-          <div className="flex flex-col items-center gap-4 md:items-start">
-            <div className="flex items-center gap-2">
-              <span className="text-[#ec5b13] font-bold">{"{}"}</span>
-              <span className="font-bold text-slate-900 dark:text-slate-100 italic">
-                Let&apos;s build something together.
-              </span>
-            </div>
-            <p className="text-sm text-slate-500">
-              © {new Date().getFullYear()} {name}. Built with passion and code.
-            </p>
-          </div>
-          <div className="flex items-center gap-6">
-            <a
-              className="text-slate-400 hover:text-[#ec5b13] transition-colors"
-              href="#"
-            >
-              <span className="font-bold">GH</span>
-            </a>
-            <a
-              className="text-slate-400 hover:text-[#ec5b13] transition-colors"
-              href="#"
-            >
-              <span className="font-bold">@</span>
-            </a>
-            <a
-              className="text-slate-400 hover:text-[#ec5b13] transition-colors"
-              href="#"
-            >
-              <span className="font-bold">IN</span>
-            </a>
-          </div>
-          <button className="flex items-center gap-2 rounded-lg bg-[#ec5b13] px-8 py-3 font-bold text-white hover:scale-105 transition-transform cursor-pointer shadow-md">
-            Download Resume
-          </button>
+    <footer className="border-t border-border bg-muted/30 py-12">
+      <div className="mx-auto max-w-7xl px-6 text-center">
+        <div className="mb-8 flex justify-center items-center gap-4 text-brand-600">
+             <div className="h-8 w-8 rounded bg-brand-600 text-white flex items-center justify-center font-bold">{"<"}</div>
+             <span className="text-xl font-bold italic text-foreground">{name}</span>
+        </div>
+        <p className="text-sm text-muted-foreground italic mb-8">
+            Built with Passion for Digital Excellence.
+        </p>
+        <div className="flex justify-center gap-8 text-sm font-medium mb-12">
+             <a href="#about" className="hover:text-brand-600 transition-colors">About</a>
+             <a href="#projects" className="hover:text-brand-600 transition-colors">Projects</a>
+             <a href="#experience" className="hover:text-brand-600 transition-colors">Experience</a>
+             <a href="#skills" className="hover:text-brand-600 transition-colors">Skills</a>
+        </div>
+        <div className="text-xs text-muted-foreground font-mono opacity-50">
+          © {new Date().getFullYear()} {name}. All Rights Reserved.
         </div>
       </div>
     </footer>

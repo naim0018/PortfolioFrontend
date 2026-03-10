@@ -39,16 +39,16 @@ const PortfolioTemplate = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f6f6]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ec5b13]"></div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
       </div>
     );
   }
 
   if (isError || !response?.data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f6f6]">
-        <h2 className="text-2xl font-semibold text-slate-700">
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <h2 className="text-2xl font-semibold text-foreground">
           Portfolio Not Found
         </h2>
       </div>
@@ -59,9 +59,9 @@ const PortfolioTemplate = () => {
   const isDraft = (portfolio as any).status === "draft";
 
   return (
-    <div className="min-h-screen bg-[#f8f6f6] dark:bg-[#221610] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#ec5b13]/30 flex flex-col">
+    <div className="min-h-screen bg-background text-foreground font-sans flex flex-col selection:bg-brand-500/30">
       {isDraft && (
-        <div className="bg-[#ec5b13] text-white text-center py-2 text-sm font-bold sticky top-0 z-[60] shadow-md italic">
+        <div className="bg-brand-600 text-white text-center py-2 text-sm font-bold sticky top-0 z-[60] shadow-md italic">
           🚧 This is a DRAFT version. It may not be visible to the public.
         </div>
       )}

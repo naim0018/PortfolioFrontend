@@ -49,10 +49,10 @@ const TemplateManagement = () => {
   if (isLoading) return <div className="p-8 text-center">Loading templates...</div>;
 
   return (
-    <div className="admin-dark max-w-7xl mx-auto space-y-8 p-6">
+    <div className="mx-auto space-y-8 p-6 pt-0">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900 border-l-4 border-brand-600 pl-4">Template Library</h2>
+          <h2 className="text-3xl font-bold text-foreground border-l-4 border-brand-600 pl-4">Template Library</h2>
           <p className="mt-2 text-slate-500">Configure portfolio designs available for users.</p>
         </div>
         <button 
@@ -65,7 +65,7 @@ const TemplateManagement = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {templates.map((template: any) => (
-          <div key={template._id} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+          <div key={template._id} className="bg-card rounded-xl shadow-sm border border-border overflow-hidden group">
             <div className="relative aspect-video bg-slate-100 overflow-hidden">
               <img 
                 src={template.coverImage || "/placeholder.jpg"} 
@@ -82,7 +82,7 @@ const TemplateManagement = () => {
               </div>
             </div>
             <div className="p-5">
-              <h3 className="text-lg font-bold text-slate-900">{template.title}</h3>
+              <h3 className="text-lg font-bold text-foreground">{template.title}</h3>
               <p className="text-sm text-slate-500 mt-1 line-clamp-2">{template.description}</p>
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
@@ -103,14 +103,14 @@ const TemplateManagement = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl p-6">
+          <div className="bg-card rounded-2xl w-full max-w-md shadow-2xl p-6 border border-border">
             <h3 className="text-xl font-bold mb-4">Create New Template</h3>
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-slate-700">Title</label>
                 <input 
                   required
-                  className="w-full border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="w-full bg-background border border-border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
                   value={formData.title}
                   onChange={e => setFormData({...formData, title: e.target.value})}
                 />
@@ -119,7 +119,7 @@ const TemplateManagement = () => {
                 <label className="text-sm font-medium text-slate-700">Description</label>
                 <textarea 
                   required
-                  className="w-full border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="w-full bg-background border border-border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
                   value={formData.description}
                   onChange={e => setFormData({...formData, description: e.target.value})}
                 />
@@ -128,7 +128,7 @@ const TemplateManagement = () => {
                 <label className="text-sm font-medium text-slate-700">Cover Image URL</label>
                 <input 
                   required
-                  className="w-full border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="w-full bg-background border border-border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
                   value={formData.coverImage}
                   onChange={e => setFormData({...formData, coverImage: e.target.value})}
                 />
@@ -137,7 +137,7 @@ const TemplateManagement = () => {
                 <label className="text-sm font-medium text-slate-700">Demo Link</label>
                 <input 
                   required
-                  className="w-full border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="w-full bg-background border border-border rounded-lg p-2 mt-1 focus:ring-2 focus:ring-brand-500 outline-none"
                   value={formData.link}
                   onChange={e => setFormData({...formData, link: e.target.value})}
                 />

@@ -101,7 +101,7 @@ const ProfileDetailsForm = () => {
                     id="profilePicture"
                     {...register("profilePicture")}
                     placeholder="https://example.com/your-photo.jpg"
-                    className="w-full pl-11 pr-10 py-3.5 bg-slate-50 dark:bg-slate-800/50 border border-border rounded-xl text-sm font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 shadow-sm"
+                    className="w-full pl-11 pr-10 py-3.5 bg-background border border-border rounded-xl text-sm font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
                   />
                   {/* Clear button */}
                   <AnimatePresence>
@@ -149,7 +149,7 @@ const ProfileDetailsForm = () => {
                 id="name"
                 {...register("name")}
                 placeholder="e.g. John Doe"
-                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-border rounded-xl px-5 py-3.5 text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 shadow-sm"
+                className="w-full bg-background border border-border rounded-xl px-5 py-3.5 text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 shadow-sm"
               />
             </div>
             {errors.name && (
@@ -218,7 +218,7 @@ const ProfileDetailsForm = () => {
               {...register("longDescription")}
               rows={6}
               placeholder="Write a compelling story about your career and passion..."
-              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-border rounded-xl px-5 py-4 text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-800 transition-all duration-300 resize-none shadow-sm leading-relaxed"
+              className="w-full bg-background border border-border rounded-xl px-5 py-4 text-sm font-semibold text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 resize-none shadow-sm leading-relaxed"
             />
             {errors.longDescription && (
               <p className="text-destructive text-[10px] font-semibold uppercase tracking-wider flex items-center gap-1.5 mt-1.5">

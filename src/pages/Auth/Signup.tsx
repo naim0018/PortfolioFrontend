@@ -75,74 +75,78 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-200">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-center">Signup</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
-          {/* Name Field */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+    <div className="flex items-center justify-center min-h-screen bg-[#e5e7eb] py-10">
+      <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-[#f9fafb] text-[#1f2937] shadow-lg">
+        <h1 className="text-2xl font-bold text-center">Sign up</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="space-y-1 text-sm">
+            <label htmlFor="name" className="block text-[#4b5563]">
               Name
             </label>
             <input
               type="text"
+              id="name"
+              placeholder="Name"
               {...register("name")}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md border-[#d1d5db] bg-[#f9fafb] text-[#1f2937] focus:border-violet-600 focus:outline-none"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
             )}
           </div>
-
-          {/* Email Field */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+          <div className="space-y-1 text-sm">
+            <label htmlFor="email" className="block text-[#4b5563]">
               Email
             </label>
             <input
               type="email"
+              id="email"
+              placeholder="Email"
               {...register("email")}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md border-[#d1d5db] bg-[#f9fafb] text-[#1f2937] focus:border-violet-600 focus:outline-none"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
             )}
           </div>
 
-          {/* Password Field */}
-          <div className="mb-4 relative grid">
-            <label className="block text-sm font-medium text-gray-700">
+          <div className="space-y-1 text-sm">
+            <label htmlFor="password" className="block text-[#4b5563]">
               Password
             </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              {...register("password")}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
-            )}
-            <div className="absolute right-3 place-self-center top-1/2">
-              {showPassword ? (
-                <Eye
-                  className="cursor-pointer text-gray-500 size-5"
-                  onClick={() => setShowPassword(false)}
-                />
-              ) : (
-                <EyeOff
-                  className="cursor-pointer text-gray-500 size-5"
-                  onClick={() => setShowPassword(true)}
-                />
-              )}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Password"
+                {...register("password")}
+                className="w-full px-4 py-3 border rounded-md border-[#d1d5db] bg-[#f9fafb] text-[#1f2937] focus:border-violet-600 focus:outline-none"
+              />
+              <div className="absolute right-3 place-self-center top-1/2 -translate-y-1/2">
+                {showPassword ? (
+                  <Eye
+                    className="cursor-pointer text-[#6b7280] size-5"
+                    onClick={() => setShowPassword(false)}
+                  />
+                ) : (
+                  <EyeOff
+                    className="cursor-pointer text-[#6b7280] size-5"
+                    onClick={() => setShowPassword(true)}
+                  />
+                )}
+              </div>
             </div>
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+            )}
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+          
+          <div className="space-y-1 text-sm">
+            <label className="block text-[#4b5563]">
               Profile Picture
             </label>
-            {/* input box  */}
             <div
-              className="relative w-full h-36 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition"
+              className="relative w-full h-36 border-2 border-dashed border-[#d1d5db] rounded-lg flex items-center justify-center cursor-pointer bg-[#f9fafb] hover:border-violet-500 transition-colors"
               onClick={() => document.getElementById("fileInput")?.click()}
             >
               {preview ? (
@@ -152,9 +156,9 @@ const Signup = () => {
                   className="absolute inset-0 w-full h-full object-cover rounded-lg"
                 />
               ) : (
-                <div className="flex flex-col items-center text-gray-500">
-                  <CiSquarePlus className="h-12 w-12" />
-                  <p className="text-sm">Click to upload</p>
+                <div className="flex flex-col items-center text-[#6b7280]">
+                  <CiSquarePlus className="h-10 w-10 text-[#9ca3af] mb-1" />
+                  <p className="text-xs">Click to upload</p>
                 </div>
               )}
             </div>
@@ -167,27 +171,30 @@ const Signup = () => {
             />
             {errors.image?.message &&
               typeof errors.image.message === "string" && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-red-500 text-xs mt-1">
                   {errors.image.message}
                 </p>
               )}
           </div>
-          <div className="mb-3">
-            <p>
-              Already have an account?{" "}
-              <Link to="/login" className="text-blue-400 ">
-                Login here
-              </Link>
-            </p>
-          </div>
+
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
+            className="block w-full p-3 text-center rounded-sm text-[#f9fafb] bg-violet-600 hover:bg-violet-700 disabled:opacity-50 transition-colors"
           >
-            {isLoading ? "Signing up..." : "Signup"}
+            {isLoading ? "Signing up..." : "Sign up"}
           </button>
         </form>
+        
+        <p className="text-xs text-center sm:px-6 text-[#4b5563] pt-4">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="underline text-[#1f2937] hover:text-violet-600"
+          >
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
   );

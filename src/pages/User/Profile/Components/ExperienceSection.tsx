@@ -162,7 +162,7 @@ const ExperienceSection = () => {
                               id={`experience-logo-${index}`}
                               {...register(`experience.${index}.logo`)}
                               placeholder="https://company.com/logo.svg"
-                              className="w-full pl-11 pr-4 py-3.5 bg-white dark:bg-slate-900 border border-border rounded-xl text-xs font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                              className="w-full pl-11 pr-4 py-3.5 bg-background border border-border rounded-xl text-xs font-medium text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                             />
                           </div>
                         </div>
@@ -178,7 +178,7 @@ const ExperienceSection = () => {
                             id={`experience-title-${index}`}
                             {...register(`experience.${index}.title`)}
                             placeholder="e.g. Google, Meta, OpenAI"
-                            className="w-full bg-slate-50 dark:bg-slate-900 border border-border rounded-xl px-5 py-3.5 text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                            className="w-full bg-background border border-border rounded-xl px-5 py-3.5 text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                           />
                         </div>
                         <div className="space-y-2">
@@ -191,7 +191,7 @@ const ExperienceSection = () => {
                               id={`experience-location-${index}`}
                               {...register(`experience.${index}.location`)}
                               placeholder="e.g. Google • Mountain View, CA"
-                              className="w-full pl-11 pr-5 py-3.5 bg-slate-50 dark:bg-slate-900 border border-border rounded-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
+                              className="w-full pl-11 pr-5 py-3.5 bg-background border border-border rounded-xl text-sm font-semibold text-foreground placeholder:text-muted-foreground/20 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all"
                             />
                           </div>
                         </div>
@@ -211,7 +211,7 @@ const ExperienceSection = () => {
                               id={`experience-start-${index}`}
                               {...register(`experience.${index}.startDate`)}
                               placeholder="JAN 2021"
-                              className="w-full bg-white dark:bg-slate-900 border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/20 text-center focus:outline-none focus:border-brand-500/50 uppercase transition-all"
+                              className="w-full bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-foreground placeholder:text-muted-foreground/20 text-center focus:outline-none focus:border-brand-500/50 uppercase transition-all"
                             />
                           </div>
                           <div className="space-y-1.5">
@@ -222,7 +222,7 @@ const ExperienceSection = () => {
                               id={`experience-end-${index}`}
                               {...register(`experience.${index}.endDate`)}
                               placeholder="PRESENT"
-                              className="w-full bg-white dark:bg-slate-900 border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-brand-600 dark:text-brand-400 placeholder:text-brand-500/20 text-center focus:outline-none focus:border-brand-500/50 uppercase transition-all"
+                              className="w-full bg-background border border-border rounded-xl px-4 py-2.5 text-xs font-semibold text-brand-600 dark:text-brand-400 placeholder:text-brand-500/20 text-center focus:outline-none focus:border-brand-500/50 uppercase transition-all"
                             />
                           </div>
                         </div>
@@ -239,7 +239,7 @@ const ExperienceSection = () => {
                           {...register(`experience.${index}.description`)}
                           rows={4}
                           placeholder="Describe your achievements, technical leadership, and business impact..."
-                          className="w-full bg-slate-50 dark:bg-slate-800/20 border border-border rounded-xl px-6 py-5 text-sm font-medium text-foreground placeholder:text-muted-foreground/20 italic focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 focus:bg-white dark:focus:bg-slate-900 transition-all duration-300 resize-none leading-relaxed shadow-inner"
+                          className="w-full bg-background border border-border rounded-xl px-6 py-5 text-sm font-medium text-foreground placeholder:text-muted-foreground/20 italic focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50 transition-all duration-300 resize-none leading-relaxed shadow-inner"
                         />
                       </div>
                     </div>
