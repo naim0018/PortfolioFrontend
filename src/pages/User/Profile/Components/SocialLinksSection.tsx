@@ -207,7 +207,7 @@ const SocialLinksSection = () => {
                     {/* URL Input */}
                     <div className="relative group/input flex flex-col gap-1.5 md:col-span-2 lg:col-span-2">
                       <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest pl-1">
-                        Profile URL
+                        URL
                       </label>
                       <div className="relative flex">
                         <div className="flex items-center justify-center px-4 bg-muted border border-r-0 border-border rounded-l-xl text-muted-foreground group-focus-within/input:bg-brand-50 group-focus-within/input:text-brand-600 group-focus-within/input:border-brand-500/50 transition-all">

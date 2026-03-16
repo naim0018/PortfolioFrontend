@@ -4,10 +4,7 @@ export const socialLinkSchema = z.object({
   logo: z.string().min(1, "Logo is required"),
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
-  link: z
-    .string()
-    .optional()
-    .refine((v) => !v || v.startsWith("http"), { message: "Invalid URL" }),
+  link: z.string().optional(),
 });
 
 export const projectSchema = z.object({
